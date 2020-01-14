@@ -63,7 +63,7 @@ final class RootCoordinator: Coordinator {
             strongSelf.navigate(to: menuItem.option)
         }
 
-        menu?.configure(view: root.view, navigationBar: root.navigationBar)
+        menu?.configure(navigationBar: root.navigationBar)
     }
 
     private func navigate(to option: SideMenuOption? = .chats) {
@@ -164,7 +164,6 @@ final class FirstCoordinator: SideMenuCoordinator {
     }
 
     func dismiss() {
-        // TODO:
         vc.dismiss(animated: true)
     }
 
@@ -207,7 +206,6 @@ final class SecondCoordinator: SideMenuCoordinator {
     }
 
     func dismiss() {
-        // TODO:
         vc.dismiss(animated: true)
     }
 

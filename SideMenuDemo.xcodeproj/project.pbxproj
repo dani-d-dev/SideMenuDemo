@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3C4B2FC395D9A670837D1B7D /* Pods_SideMenuDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E88FC3BA6104398A0B0BFF78 /* Pods_SideMenuDemo.framework */; };
+		900C775923CDC3F300BEBB85 /* PinCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C775823CDC3F300BEBB85 /* PinCodeView.swift */; };
+		900C775C23CDC41C00BEBB85 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C775B23CDC41C00BEBB85 /* UIView+Extensions.swift */; };
+		900C775E23CDC4AB00BEBB85 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C775D23CDC4AB00BEBB85 /* InputTextField.swift */; };
 		90D9769C23C297FF007DCB59 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9769B23C297FE007DCB59 /* SideMenuViewController.swift */; };
 		90D976A023C2988E007DCB59 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9769E23C2988E007DCB59 /* SideMenuViewModel.swift */; };
 		90D976A123C2988E007DCB59 /* SideMenuCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9769F23C2988E007DCB59 /* SideMenuCellViewModel.swift */; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		900C775823CDC3F300BEBB85 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
+		900C775B23CDC41C00BEBB85 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		900C775D23CDC4AB00BEBB85 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
 		90D9769B23C297FE007DCB59 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		90D9769E23C2988E007DCB59 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
 		90D9769F23C2988E007DCB59 /* SideMenuCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuCellViewModel.swift; sourceTree = "<group>"; };
@@ -61,6 +67,31 @@
 				EA2D9A95813593CDDDDE99D7 /* Pods-SideMenuDemo.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		900C775623CDC3C400BEBB85 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				900C775723CDC3CF00BEBB85 /* PinCodeView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		900C775723CDC3CF00BEBB85 /* PinCodeView */ = {
+			isa = PBXGroup;
+			children = (
+				900C775823CDC3F300BEBB85 /* PinCodeView.swift */,
+				900C775D23CDC4AB00BEBB85 /* InputTextField.swift */,
+			);
+			path = PinCodeView;
+			sourceTree = "<group>";
+		};
+		900C775A23CDC40D00BEBB85 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				900C775B23CDC41C00BEBB85 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		9030D1925935F5F839293C1F /* Frameworks */ = {
@@ -120,6 +151,8 @@
 		90F9A5AE23C23B4F00B8D0B1 /* SideMenuDemo */ = {
 			isa = PBXGroup;
 			children = (
+				900C775A23CDC40D00BEBB85 /* Extensions */,
+				900C775623CDC3C400BEBB85 /* Views */,
 				90F9A5C523C23CB000B8D0B1 /* App */,
 				90F9A5C423C23CA500B8D0B1 /* Coordinators */,
 				90F9A5C323C23C9900B8D0B1 /* Controllers */,
@@ -273,11 +306,14 @@
 			files = (
 				90F9A5CB23C2415A00B8D0B1 /* SecondViewController.swift in Sources */,
 				90F9A5C923C2414200B8D0B1 /* FirstViewController.swift in Sources */,
+				900C775923CDC3F300BEBB85 /* PinCodeView.swift in Sources */,
 				90F9A5CD23C2416700B8D0B1 /* ThirdViewController.swift in Sources */,
 				90D976A623C29B4C007DCB59 /* SideMenuHelper.swift in Sources */,
 				90D976A023C2988E007DCB59 /* SideMenuViewModel.swift in Sources */,
+				900C775C23CDC41C00BEBB85 /* UIView+Extensions.swift in Sources */,
 				90D976A123C2988E007DCB59 /* SideMenuCellViewModel.swift in Sources */,
 				90D976A423C29918007DCB59 /* SideMenuCell.swift in Sources */,
+				900C775E23CDC4AB00BEBB85 /* InputTextField.swift in Sources */,
 				90F9A5C723C23E0100B8D0B1 /* AppCoordinator.swift in Sources */,
 				90D9769C23C297FF007DCB59 /* SideMenuViewController.swift in Sources */,
 				90F9A5B023C23B4F00B8D0B1 /* AppDelegate.swift in Sources */,

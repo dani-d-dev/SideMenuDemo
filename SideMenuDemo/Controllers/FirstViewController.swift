@@ -14,6 +14,9 @@ protocol Coordinable: UIViewController {
 
 class FirstViewController: UIViewController, Coordinable {
     weak var parentCoordinator: Coordinator?
+    private var pinCodeView: PinCodeView = {
+        PinCodeView()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +29,25 @@ class FirstViewController: UIViewController, Coordinable {
 
         // Navigation bar
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(menuButtonPressed))
+        
+        
+        // Add pincodeview
+        
+        view.addSubview(pinCodeView)
+        
+        pinCodeView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.topMargin.equalToSuperview().offset(60.0)
+        }
+        
+        pinCodeView.addAction { result in
+            switch result {
+            case .success(let text):
+                print(text)
+            case .failure(let err):
+                print(err)
+            }
+        }
     }
 
     @objc private func menuButtonPressed() {

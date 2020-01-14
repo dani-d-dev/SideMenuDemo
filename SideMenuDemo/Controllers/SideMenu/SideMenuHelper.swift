@@ -33,13 +33,9 @@ final class SideMenuHelper {
     
     // MARK: Methods
     
-    func configure(
-        view: UIView,
-        navigationBar: UINavigationBar?
-    ) {
+    func configure(navigationBar: UINavigationBar?) {
         guard let navBar = navigationBar else { return }
         SideMenuManager.default.addPanGestureToPresent(toView: navBar)
-        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view)
     }
     
     func present(

@@ -9,7 +9,6 @@
 import UIKit
 
 final class InputTextField: UITextField {
-    
     // MARK: Properties
 
     enum Constants {
@@ -21,10 +20,19 @@ final class InputTextField: UITextField {
             invalidateIntrinsicContentSize()
         }
     }
-    
+
     override var canBecomeFirstResponder: Bool {
         return true
     }
+
+    private var shouldHightLightBorder: Bool = false {
+        didSet {
+            hightLightBorder(value: shouldHightLightBorder)
+        }
+    }
+
+    private let highLightedColor: UIColor
+    private let unhighlightedColor: UIColor
 
     // MARK: Init
 
@@ -33,9 +41,13 @@ final class InputTextField: UITextField {
         keyboardType: UIKeyboardType = .numberPad,
         isSecureTextEntry: Bool = false,
         backgroundColor: UIColor = .lightGray,
+        highLightedColor: UIColor = .blue,
+        unhighlightedColor: UIColor = .white,
         cornerRadius: CGFloat = 4.0,
         contentSize: CGSize = Constants.defaultSize
     ) {
+        self.highLightedColor = highLightedColor
+        self.unhighlightedColor = unhighlightedColor
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         self.tag = tag
@@ -69,12 +81,25 @@ final class InputTextField: UITextField {
     override func caretRect(for _: UITextPosition) -> CGRect {
         return .zero
     }
+
+    private func hightLightBorder(value: Bool) {
+        layer.borderWidth = value ? 1.0 : 0.0
+        layer.borderColor = value ? highLightedColor.cgColor : unhighlightedColor.cgColor
+    }
 }
 
 // MARK: UITextFieldDelegate4
 
 extension InputTextField: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_: UITextField, shouldChangeCharactersIn range: NSRange, replacementString _: String) -> Bool {
         return range.location <= 1
+    }
+
+    func textFieldDidBeginEditing(_: UITextField) {
+        shouldHightLightBorder = true
+    }
+
+    func textFieldDidEndEditing(_: UITextField) {
+        shouldHightLightBorder = false
     }
 }

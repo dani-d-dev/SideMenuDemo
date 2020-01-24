@@ -40,12 +40,14 @@ class FirstViewController: UIViewController, Coordinable {
             $0.topMargin.equalToSuperview().offset(60.0)
         }
         
-        pinCodeView.addAction { result in
+        pinCodeView.addAction { [weak self] result in
             switch result {
             case .success(let text):
                 print(text)
+                self?.view.backgroundColor = .green
             case .failure(let err):
                 print(err)
+                self?.view.backgroundColor = .orange
             }
         }
     }

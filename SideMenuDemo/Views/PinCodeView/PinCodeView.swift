@@ -10,11 +10,11 @@ import RxCocoa
 import RxSwift
 import UIKit
 
+// swiftlint:disable all
 final class PinCodeView: UIView {
-    
     typealias PinCodeResult = Swift.Result<String, PinCodeError>
     typealias ResultClosure = (PinCodeResult) -> Void
-    
+
     enum PinCodeError: Error {
         case uncompleted
     }
@@ -27,9 +27,9 @@ final class PinCodeView: UIView {
         static let inputFont = UIFont.systemFont(ofSize: 22.0, weight: .heavy)
         static let inputBackgroundColor = UIColor(red: 235.0 / 255.0, green: 235.0 / 255.0, blue: 235.0 / 255.0, alpha: 1.0)
     }
-    
+
     // MARK: Properties
-    
+
     private var actionClosure: ResultClosure?
     private let inputsCount: Int
     private var inputs: [UITextField] = []
@@ -45,100 +45,108 @@ final class PinCodeView: UIView {
             spacing: Constants.spacing
         )
     }()
-    
+
     // MARK: Life cycle
-    
+
     init(
         numberOfInputs: Int = Constants.numberOfInputs,
-        actionClosure: ResultClosure? = { _ in },
+        actionClosure _: ResultClosure? = { _ in },
         isSecureTextEntry: Bool = false,
         keyBoardType: UIKeyboardType = .numberPad
     ) {
         inputsCount = numberOfInputs
-        self.actionClosure = { _ in }
+        actionClosure = { _ in }
         self.isSecureTextEntry = isSecureTextEntry
         keyboardType = keyBoardType
         super.init(frame: .zero)
         setupData()
         setupUI()
     }
-    
-    required init?(coder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: Setup
-    
+
     private func setupData() {
-        inputs = (1...inputsCount).map {
+        inputs = (1 ... inputsCount).map {
             let input = buildInput(tag: $0)
             input.rx.controlEvent(.editingChanged)
-            .asDriver()
-            .drive(onNext: {
-                self.validateEntry(txtField: input)
-            }).disposed(by: disposeBag)
+                .asDriver()
+                .drive(onNext: {
+                    self.validateEntry(txtField: input)
+                }).disposed(by: disposeBag)
+
+            input.rx.controlEvent(.touchDown)
+                .asDriver()
+                .drive(onNext: {
+                    self.lastCursorPosition = input.tag
+                    self.actionClosure?(self.buildResponse())
+                }).disposed(by: disposeBag)
+
             return input
         }
     }
-    
-    private func setupBinding() {
-        inputs.forEach { txt in
-            txt.rx.controlEvent(.editingChanged)
-            .asDriver()
-            .drive(onNext: {
-                self.validateEntry(txtField: txt)
-            }).disposed(by: disposeBag)
-        }
-    }
-    
+
     // MARK: Validations
-    
+
     private func hasMinimumCharacters() -> Bool {
         let minimumCharacters: [Bool] = inputs.compactMap { txtField in
             guard let txt = txtField.text, !txt.isEmpty, txt.count == 1 else { return false }
             return true
         }
-        
+
         return minimumCharacters.filter { $0 == true }.count == inputs.count
     }
-    
+
     private func validateEntry(txtField: UITextField) {
-        guard let txt = txtField.text, txt.count == 1 else {
+        guard
+            let txt = txtField.text, txt.count != 0,
+            let char = txtField.text?.last
+        else {
             lastCursorPosition -= 1
             inputs.filter { $0.tag == lastCursorPosition }.first?.becomeFirstResponder()
             actionClosure?(buildResponse())
             return
         }
-        
-        // Enable the next input field
+
         lastCursorPosition = txtField.tag + 1
+        txtField.text = String(char)
+
         if lastCursorPosition <= inputs.count {
-            inputs.filter { $0.tag == lastCursorPosition }.first?.becomeFirstResponder()
+            let nextInput = inputs.filter { $0.tag == lastCursorPosition }.first
+            nextInput?.becomeFirstResponder()
         } else {
             lastCursorPosition -= 1
         }
-        
+
         actionClosure?(buildResponse())
     }
-    
+
     // MARK: Action callbacks
-    
+
     func addAction(closure: @escaping ResultClosure) {
         actionClosure = closure
     }
-    
+
     // MARK: Configure UI
-    
+
     private func setupUI() {
         backgroundColor = .clear
         addSubview(horizontalStackView)
         horizontalStackView.addArrangedSubviews(inputs)
+        inputs.forEach {
+            $0.snp.makeConstraints {
+                $0.width.equalTo(Constants.inputBoxSize.width)
+            }
+        }
         horizontalStackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         inputs.first?.becomeFirstResponder()
     }
-    
+
     // MARK: Build input box
-    
+
     private func buildInput(tag: Int) -> UITextField {
         InputTextField(
             tag: tag,
@@ -149,7 +157,7 @@ final class PinCodeView: UIView {
             contentSize: Constants.inputBoxSize
         )
     }
-    
+
     // MARK: Build response
 
     private func buildResponse() -> PinCodeResult {

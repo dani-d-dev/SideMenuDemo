@@ -35,6 +35,7 @@ final class PinCodeView: UIView {
     private var inputs: [UITextField] = []
     private let disposeBag = DisposeBag()
     private let isSecureTextEntry: Bool
+    private let inputBackgroundColor: UIColor
     private var lastCursorPosition: Int = 0
     private var keyboardType: UIKeyboardType
     private let horizontalStackView: UIStackView = {
@@ -52,11 +53,13 @@ final class PinCodeView: UIView {
         numberOfInputs: Int = Constants.numberOfInputs,
         actionClosure _: ResultClosure? = { _ in },
         isSecureTextEntry: Bool = false,
-        keyBoardType: UIKeyboardType = .numberPad
+        keyBoardType: UIKeyboardType = .numberPad,
+        inputBackgroundColor: UIColor = Constants.inputBackgroundColor
     ) {
         inputsCount = numberOfInputs
         actionClosure = { _ in }
         self.isSecureTextEntry = isSecureTextEntry
+        self.inputBackgroundColor = inputBackgroundColor
         keyboardType = keyBoardType
         super.init(frame: .zero)
         setupData()
@@ -152,7 +155,7 @@ final class PinCodeView: UIView {
             tag: tag,
             keyboardType: keyboardType,
             isSecureTextEntry: isSecureTextEntry,
-            backgroundColor: Constants.inputBackgroundColor,
+            backgroundColor: inputBackgroundColor,
             cornerRadius: Constants.inputCornerRadius,
             contentSize: Constants.inputBoxSize
         )

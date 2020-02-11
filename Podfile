@@ -9,6 +9,7 @@ target 'SideMenuDemo' do
 
 pod 'RxSwift'
 pod 'RxCocoa'
+pod 'RxDataSources'
 pod 'SideMenu'
 pod 'SnapKit', '~> 5.0.0'
 

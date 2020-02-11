@@ -34,6 +34,7 @@ final class AppCoordinator {
         // TODO:
 
         window.rootViewController = rootCoordinator.root
+//        window.rootViewController = UINavigationController(rootViewController: BackupViewController.newInstance())
         window.makeKeyAndVisible()
 
         rootCoordinator.presentHome()
